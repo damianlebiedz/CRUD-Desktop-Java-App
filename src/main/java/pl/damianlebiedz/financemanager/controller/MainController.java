@@ -13,7 +13,6 @@ import pl.damianlebiedz.financemanager.model.Data;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -53,65 +52,46 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Data, Date> dateColumn;
 
-    ObservableList<Data> dataList = FXCollections.observableArrayList();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String query = "SELECT * FROM DATA";
-        executeQuery(query);
+        showData();
+        dateField.setValue(LocalDate.now());
     }
-    @FXML
-    void addBtn(ActionEvent event) {
 
-        String name = nameField.getText();
-        String category = categoryField.getText();
-        int price = Integer.parseInt(priceField.getText());
-        String date = dateField.getValue().toString();
+    public ObservableList<Data> getDataList() {
+        ObservableList<Data> dataList = FXCollections.observableArrayList();
 
-//        if(name.equals("") || category.equals("category") || price == 0 || date.equals(null)) {
-//            //TODO
-//        }
+        DBConnection DBConnection = new DBConnection();
+        Connection connection = DBConnection.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM DATA");
+            ResultSet result = statement.executeQuery();
 
-        String query = "INSERT INTO DATA VALUES ('"+name+"','"+category+"',"+price+",'"+date+"')";
-        executeUpdate(query);
-
-        executeQuery("SELECT * FROM DATA");
+            while (result.next()) {
+                dataList.add(new Data(
+                        result.getInt("id"),
+                        result.getString("name"),
+                        result.getString("category"),
+                        result.getInt("price"),
+                        result.getString("date"))
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataList;
     }
-    @FXML
-    void deleteBtn(ActionEvent event) {
-        String name = nameField.getText();
-        String category = categoryField.getText();
-        int price = Integer.parseInt(priceField.getText());
-        String date = dateField.getValue().toString();
+    private void showData() {
+        ObservableList<Data> dataList = getDataList();
 
-        String query = "DELETE FROM DATA WHERE NAME='"+name+"'; CATEGORY='"+category+"'; PRICE="+price+"; DATE='"+date+"';";
-        executeUpdate(query);
-        dataList.clear();
-        executeQuery("SELECT * FROM DATA");
-    }
-    @FXML
-    void updateBtn(ActionEvent event) {
-        //TODO
-    }
-    @FXML
-    void summaryBtn(ActionEvent event) {
-        //TODO
-    }
-    private void fillTableWithData() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 //        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    }
-    @FXML
-    private void category(ActionEvent event) {
-        String category = ((MenuItem) event.getSource()).getText();
-        switch(category) {
-            case "food" -> categoryField.setText("food");
-            case "chemistry" -> categoryField.setText("chemistry");
-            case "other" -> categoryField.setText("other");
-        }
+
+        table.setItems(dataList);
     }
     private void executeUpdate(String query) {
         try {
@@ -122,35 +102,59 @@ public class MainController implements Initializable {
             int result = statement.executeUpdate();
 
             connection.close();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    private void executeQuery(String query) {
+    @FXML
+    void addBtn(ActionEvent event) {
+        String query =
+                "INSERT INTO DATA VALUES (default,'" + nameField.getText() + "','" + categoryField.getText() + "'," + Integer.parseInt(priceField.getText()) + ",'" + dateField.getValue().toString() + "')";
+        executeUpdate(query);
+        showData();
+    }
+    @FXML
+    void deleteBtn(ActionEvent event) {
+        Data data = table.getSelectionModel().getSelectedItem();
+        int id = data.getId();
+        String query =
+                "DELETE FROM DATA WHERE ID="+id+";";
+        executeUpdate(query);
+        showData();
+    }
+    @FXML
+    void updateBtn(ActionEvent event) {
+        Data data = table.getSelectionModel().getSelectedItem();
+        int id = data.getId();
+        String query =
+                "UPDATE  DATA SET NAME ='" + nameField.getText() + "', CATEGORY = '" + categoryField.getText() + "'," + " PRICE = " +
+                Integer.parseInt(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' WHERE id = " + id + "";
+        executeUpdate(query);
+        showData();
+    }
+    @FXML
+    void summaryBtn(ActionEvent event) {
+        //TODO
+    }
+    @FXML
+    void onMouseClickedTable(javafx.scene.input.MouseEvent mouseEvent) {
         try {
-            DBConnection DBConnection = new DBConnection();
-            Connection connection = DBConnection.getConnection();
-
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-
-            while(result.next()) {
-                dataList.add(new Data(
-                        result.getString("name"),
-                        result.getString("category"),
-                        result.getInt("price"),
-                        result.getString("date"))
-                );
-            }
-            table.setItems(dataList);
-            fillTableWithData();
-            connection.close();
+            Data data = table.getSelectionModel().getSelectedItem();
+            nameField.setText(data.getName());
+            categoryField.setText(data.getCategory());
+            priceField.setText(String.valueOf(data.getPrice()));
+            dateField.setValue(LocalDate.parse(data.getDate()));
         }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
+        catch (NullPointerException ignored) {
+        }
+    }
+    @FXML
+    private void category(ActionEvent event) {
+        String category = ((MenuItem) event.getSource()).getText();
+        switch (category) {
+            case "food" -> categoryField.setText("food");
+            case "chemistry" -> categoryField.setText("chemistry");
+            case "other" -> categoryField.setText("other");
         }
     }
 }
