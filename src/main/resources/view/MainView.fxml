@@ -118,12 +118,12 @@
     </right>
 
     <center>
-        <TableView fx:id="table" prefHeight="537.0" prefWidth="725.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="table" onMouseClicked="#onMouseClickedTable" prefHeight="537.0" prefWidth="725.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="183.0" resizable="false" text="NAME" />
-                <TableColumn fx:id="categoryColumn" prefWidth="142.0" resizable="false" text="CATEGORY" />
-                <TableColumn fx:id="priceColumn" prefWidth="176.0" resizable="false" text="PRICE" />
-                <TableColumn fx:id="dateColumn" prefWidth="223.0" resizable="false" text="DATE" />
+                <TableColumn fx:id="nameColumn" prefWidth="204.0" resizable="false" text="NAME" />
+                <TableColumn fx:id="categoryColumn" prefWidth="157.0" resizable="false" text="CATEGORY" />
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="127.0" resizable="false" text="PRICE" />
+                <TableColumn fx:id="dateColumn" prefWidth="198.0" resizable="false" text="DATE" />
             </columns>
         </TableView>
     </center>
