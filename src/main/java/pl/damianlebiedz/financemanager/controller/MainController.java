@@ -20,13 +20,11 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML
-    private TextField balance;
+    private TextField dailyChange;
     @FXML
-    private TextField currentBudget;
+    private TextField dailyChangePer;
     @FXML
-    private TextField balancePercent;
-    @FXML
-    private TextField budget;
+    private TextField total;
     @FXML
     private TextField search;
     @FXML

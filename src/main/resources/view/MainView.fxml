@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -19,100 +19,76 @@
     <top>
         <HBox prefHeight="111.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
             <Pane prefHeight="111.0" prefWidth="1131.0">
-                <ProgressBar layoutY="2.0" prefHeight="25.0" prefWidth="1080.0" progress="0.0">
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
-                </ProgressBar>
-                <TextField fx:id="balance" editable="false" layoutX="487.0" layoutY="28.0" prefHeight="37.0"
-                           prefWidth="179.0" promptText="Balance">
+                <TextField fx:id="dailyChange" editable="false" layoutX="580.0" layoutY="28.0" prefHeight="38.0" prefWidth="179.0" promptText="Daily change" style="-fx-border-color: grey;">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="currentBudget" editable="false" layoutX="666.0" layoutY="28.0" prefHeight="38.0"
-                           prefWidth="179.0" promptText="Current budget">
+                <TextField fx:id="total" editable="false" layoutX="765.0" layoutY="28.0" prefHeight="38.0" prefWidth="179.0" promptText="Total" style="-fx-border-color: grey;">
                     <font>
-                        <Font name="System Italic" size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="balancePercent" editable="false" layoutX="308.0" layoutY="28.0" prefHeight="37.0"
-                           prefWidth="179.0" promptText="Balance in %">
+                <TextField fx:id="dailyChangePer" editable="false" layoutX="395.0" layoutY="28.0" prefHeight="38.0" prefWidth="179.0" promptText="Daily change in %" style="-fx-border-color: grey;">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="search" layoutX="308.0" layoutY="81.0" prefHeight="31.0" prefWidth="501.0"
-                           promptText="search">
+                <TextField fx:id="search" layoutX="307.0" layoutY="78.0" prefHeight="35.0" prefWidth="725.0" promptText="search" style="-fx-border-color: grey;">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button contentDisplay="CENTER" layoutX="846.0" layoutY="28.0" mnemonicParsing="false"
-                        onAction="#summaryBtn" prefHeight="37.0" prefWidth="186.0" text="SUMMARY">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </Button>
-                <TextField fx:id="budget" layoutX="24.0" layoutY="28.0" prefHeight="37.0" prefWidth="260.0"
-                           promptText="Budget">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </TextField>
+            <ImageView fitHeight="98.0" fitWidth="190.0" layoutX="77.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+            </ImageView>
             </Pane>
         </HBox>
     </top>
     <left>
         <VBox alignment="CENTER" prefHeight="609.0" prefWidth="307.0" BorderPane.alignment="CENTER">
             <Pane prefHeight="594.0" prefWidth="290.0">
-                <TextField fx:id="nameField" layoutX="25.0" layoutY="28.0" prefHeight="40.0" prefWidth="260.0"
-                           promptText="Name">
+                <TextField fx:id="nameField" layoutX="25.0" layoutY="28.0" prefHeight="40.0" prefWidth="260.0" promptText="Name" style="-fx-border-color: grey;">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button layoutX="25.0" layoutY="252.0" mnemonicParsing="false" onAction="#addBtn" prefHeight="40.0"
-                        prefWidth="260.0" text="ADD">
+                <Button layoutX="25.0" layoutY="252.0" mnemonicParsing="false" onAction="#addBtn" prefHeight="40.0" prefWidth="260.0" style="-fx-border-color: grey;" text="ADD">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <TextField fx:id="priceField" layoutX="25.0" layoutY="80.0" prefHeight="40.0" prefWidth="260.0"
-                           promptText="Price">
+                <TextField fx:id="priceField" layoutX="25.0" layoutY="80.0" prefHeight="40.0" prefWidth="260.0" promptText="Price" style="-fx-border-color: grey;">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <MenuButton fx:id="categoryField" layoutX="25.0" layoutY="192.0" mnemonicParsing="false"
-                            prefHeight="40.0" prefWidth="260.0" text="Category">
+                <MenuButton fx:id="categoryField" layoutX="25.0" layoutY="192.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="260.0" style="-fx-border-color: grey;" text="Select a category">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#category" text="food"/>
-                        <MenuItem mnemonicParsing="false" onAction="#category" text="chemistry"/>
-                        <MenuItem mnemonicParsing="false" onAction="#category" text="other"/>
+                        <MenuItem mnemonicParsing="false" onAction="#category" text="food" />
+                        <MenuItem mnemonicParsing="false" onAction="#category" text="chemistry" />
+                        <MenuItem mnemonicParsing="false" onAction="#category" text="other" />
                     </items>
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </MenuButton>
-                <DatePicker fx:id="dateField" layoutX="25.0" layoutY="134.0" prefHeight="40.0" prefWidth="260.0"
-                            promptText="Date"/>
-                <Button layoutX="24.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteBtn"
-                        prefHeight="40.0" prefWidth="260.0" text="DELETE">
+                <DatePicker fx:id="dateField" layoutX="25.0" layoutY="134.0" prefHeight="40.0" prefWidth="260.0" promptText="Date" style="-fx-border-color: grey;" />
+                <Button layoutX="24.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="40.0" prefWidth="260.0" style="-fx-border-color: grey;" text="DELETE">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <Button layoutX="24.0" layoutY="311.0" mnemonicParsing="false" onAction="#updateBtn"
-                        prefHeight="40.0" prefWidth="260.0" text="UPDATE">
+                <Button layoutX="24.0" layoutY="311.0" mnemonicParsing="false" onAction="#updateBtn" prefHeight="40.0" prefWidth="260.0" style="-fx-border-color: grey;" text="UPDATE">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <TextField fx:id="errorField" alignment="CENTER" layoutX="24.0" layoutY="362.0" prefHeight="40.0"
-                           prefWidth="260.0" promptText="ERROR">
+                <TextField fx:id="errorField" alignment="CENTER" editable="false" layoutX="24.0" layoutY="371.0" prefHeight="40.0" prefWidth="260.0" promptText="ERROR">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
             </Pane>
@@ -122,18 +98,18 @@
         <VBox alignment="CENTER" prefHeight="609.0" prefWidth="48.0" BorderPane.alignment="CENTER" />
     </right>
     <center>
-        <TableView fx:id="table" onMouseClicked="#onMouseClickedTable" prefHeight="537.0" prefWidth="725.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="table" onMouseClicked="#onMouseClickedTable" prefHeight="567.0" prefWidth="1023.0" style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="204.0" resizable="false" text="NAME" />
-                <TableColumn fx:id="categoryColumn" prefWidth="157.0" resizable="false" text="CATEGORY" />
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="127.0" resizable="false" text="PRICE" />
-                <TableColumn fx:id="dateColumn" prefWidth="198.0" resizable="false" text="DATE" />
+                <TableColumn fx:id="nameColumn" prefWidth="218.0" resizable="false" text="NAME" />
+                <TableColumn fx:id="categoryColumn" prefWidth="165.0" resizable="false" text="CATEGORY" />
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="141.0" resizable="false" text="PRICE" />
+                <TableColumn fx:id="dateColumn" prefWidth="199.0" resizable="false" text="DATE" />
             </columns>
         </TableView>
     </center>
    <bottom>
        <HBox prefHeight="42.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
-           <Pane prefHeight="42.0" prefWidth="1324.0"/>
+           <Pane prefHeight="42.0" prefWidth="1324.0" />
        </HBox>
    </bottom>
 </BorderPane>
