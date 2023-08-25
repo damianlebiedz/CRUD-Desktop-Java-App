@@ -39,11 +39,10 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-            <ImageView fitHeight="98.0" fitWidth="190.0" layoutX="77.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logo.png" />
-               </image>
-            </ImageView>
+                <ImageView fitHeight="98.0" fitWidth="190.0" layoutX="60.0" layoutY="36.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../images/logo.png"/>
+                </ImageView>
             </Pane>
         </HBox>
     </top>
