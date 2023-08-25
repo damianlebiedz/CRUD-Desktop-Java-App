@@ -14,6 +14,7 @@ import pl.damianlebiedz.financemanager.model.Data;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -46,20 +47,25 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Data, String> categoryColumn;
     @FXML
-    private TableColumn<Data, Integer> priceColumn;
+    private TableColumn<Data, Float> priceColumn;
     @FXML
     private TableColumn<Data, Date> dateColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMinimumFractionDigits(2);
+        df.setMaximumFractionDigits(2);
         showData();
         dateField.setValue(LocalDate.now());
     }
     @FXML
-    void addBtn() {
+    private void addBtn() {
         try {
             String query =
-                    "INSERT INTO DATA VALUES (default,'" + nameField.getText() + "','" + categoryField.getText() + "'," + Integer.parseInt(priceField.getText()) + ",'" + dateField.getValue().toString() + "')";
+                    "INSERT INTO DATA VALUES (default,'" + nameField.getText() + "','" + categoryField.getText() +
+                            "'," + Float.parseFloat(priceField.getText()) + ",'" + dateField.getValue().toString() +
+                            "')";
             executeUpdate(query);
             showData();
         }
@@ -68,7 +74,7 @@ public class MainController implements Initializable {
         }
     }
     @FXML
-    void deleteBtn() {
+    private void deleteBtn() {
         Data data = table.getSelectionModel().getSelectedItem();
         int id = data.getId();
         String query =
@@ -77,21 +83,22 @@ public class MainController implements Initializable {
         showData();
     }
     @FXML
-    void updateBtn() {
+    private void updateBtn() {
         Data data = table.getSelectionModel().getSelectedItem();
         int id = data.getId();
         String query =
                 "UPDATE  DATA SET NAME ='" + nameField.getText() + "', CATEGORY = '" + categoryField.getText() + "'," + " PRICE = " +
-                        Integer.parseInt(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' WHERE id = " + id + "";
+                        Float.parseFloat(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' " +
+                        "WHERE id = " + id + "";
         executeUpdate(query);
         showData();
     }
     @FXML
-    void summaryBtn() {
+    private void summaryBtn() {
         //TODO
     }
     @FXML
-    void onMouseClickedTable() {
+    private void onMouseClickedTable() {
         try {
             Data data = table.getSelectionModel().getSelectedItem();
             nameField.setText(data.getName());
@@ -111,7 +118,7 @@ public class MainController implements Initializable {
             case "other" -> categoryField.setText("other");
         }
     }
-    public ObservableList<Data> getDataList() {
+    private ObservableList<Data> getDataList() {
         ObservableList<Data> dataList = FXCollections.observableArrayList();
 
         DBConnection DBConnection = new DBConnection();
@@ -125,7 +132,7 @@ public class MainController implements Initializable {
                         result.getInt("id"),
                         result.getString("name"),
                         result.getString("category"),
-                        result.getInt("price"),
+                        result.getFloat("price"),
                         result.getString("date"))
                 );
             }
@@ -162,23 +169,38 @@ public class MainController implements Initializable {
     }
     private void searchData() {
         FilteredList<Data> filteredData = new FilteredList<>(getDataList(), b -> true);
-        search.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(Data -> {
+        search.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filteredData.setPredicate(Data -> {
+                if(newValue.isEmpty() || newValue.isBlank()) {
+                    return true;
+                }
+                String lowerCase = newValue.toLowerCase();
 
-            if(newValue.isEmpty() || newValue.isBlank()) {
-                return true;
-            }
-            String lowerCase = newValue.toLowerCase();
-
-            if(Data.getName().toLowerCase().contains(lowerCase)) {
-                return true;
-            }
-            else if(Data.getCategory().toLowerCase().contains(lowerCase)) {
-                return true;
-            }
-            else return String.valueOf(Data.getPrice()).toLowerCase().contains(lowerCase);
-        }));
+                if(Data.getName().toLowerCase().contains(lowerCase)) {
+                    return true;
+                }
+                else if(Data.getCategory().toLowerCase().contains(lowerCase)) {
+                    return true;
+                }
+                else if(String.valueOf(Data.getPrice()).toLowerCase().contains(lowerCase)) {
+                    return true;
+                }
+                else return String.valueOf(Data.getDate()).toLowerCase().contains(lowerCase);
+            });
+            setTotal();
+        });
         SortedList<Data> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.setItems(sortedData);
+        setTotal();
+    }
+    private void setTotal() {
+        float totalAmount = 0;
+        totalAmount = table.getItems().stream().map(
+                Data::getPrice).reduce(totalAmount, Float::sum);
+        total.setText("Total: "+totalAmount);
+    }
+    private void setDailyChange() {
+        //TODO
     }
 }
