@@ -5,7 +5,7 @@ Created using:
 - H2 Embedded Database
 - built with Maven
 
-The application is supposed to perform Create, Read, Update and Delete actions.
+The application is supposed to Create, Read, Update and Delete data.
 
 The purpose of creating the application was to create it as a simple and transparent. The Application stores data on household expenses and shows total amount of these expenses. To add a record to table, it is required to provide the name of the expense, indicate its category, amount and date. If the entered amount is in the wrong format, the application will indicate an error.
 
