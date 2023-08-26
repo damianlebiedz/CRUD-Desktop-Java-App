@@ -21,6 +21,10 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML
+    private TextField dailyChange;
+    @FXML
+    private TextField dailyChangePer;
+    @FXML
     private TextField total;
     @FXML
     private TextField search;
@@ -50,24 +54,20 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
+        df.setMaximumFractionDigits(2);
         showData();
         dateField.setValue(LocalDate.now());
     }
     @FXML
     private void addBtn() {
         try {
-            if(categoryField.getText().equals("Select a category") || priceField.getText().startsWith("0")) {
-                throw new NumberFormatException();
-            }
             String query =
                     "INSERT INTO DATA VALUES (default,'" + nameField.getText() + "','" + categoryField.getText() +
                             "'," + Float.parseFloat(priceField.getText()) + ",'" + dateField.getValue().toString() +
                             "')";
             executeUpdate(query);
             showData();
-            errorField.clear();
         }
         catch(NumberFormatException e) {
             errorField.setText("INCORRECT DATA");
@@ -84,23 +84,18 @@ public class MainController implements Initializable {
     }
     @FXML
     private void updateBtn() {
-        try {
-            if(categoryField.getText().equals("Select a category") || priceField.getText().startsWith("0")) {
-                throw new NumberFormatException();
-            }
-            Data data = table.getSelectionModel().getSelectedItem();
-            int id = data.getId();
-            String query =
-                    "UPDATE  DATA SET NAME ='" + nameField.getText() + "', CATEGORY = '" + categoryField.getText() + "'," + " PRICE = " +
-                            Float.parseFloat(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' " +
-                            "WHERE id = " + id + "";
-            executeUpdate(query);
-            showData();
-            errorField.clear();
-        }
-        catch(NumberFormatException e) {
-            errorField.setText("INCORRECT DATA");
-        }
+        Data data = table.getSelectionModel().getSelectedItem();
+        int id = data.getId();
+        String query =
+                "UPDATE  DATA SET NAME ='" + nameField.getText() + "', CATEGORY = '" + categoryField.getText() + "'," + " PRICE = " +
+                        Float.parseFloat(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' " +
+                        "WHERE id = " + id + "";
+        executeUpdate(query);
+        showData();
+    }
+    @FXML
+    private void summaryBtn() {
+        //TODO
     }
     @FXML
     private void onMouseClickedTable() {
@@ -119,9 +114,7 @@ public class MainController implements Initializable {
         String category = ((MenuItem) event.getSource()).getText();
         switch (category) {
             case "food" -> categoryField.setText("food");
-            case "cosmetics" -> categoryField.setText("cosmetics");
-            case "medicines" -> categoryField.setText("medicines");
-            case "bills" -> categoryField.setText("bills");
+            case "chemistry" -> categoryField.setText("chemistry");
             case "other" -> categoryField.setText("other");
         }
     }
@@ -156,6 +149,7 @@ public class MainController implements Initializable {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         searchData();
+
         dateColumn.setSortType(TableColumn.SortType.DESCENDING);
         table.getSortOrder().add(dateColumn);
         table.sort();
@@ -204,6 +198,9 @@ public class MainController implements Initializable {
         float totalAmount = 0;
         totalAmount = table.getItems().stream().map(
                 Data::getPrice).reduce(totalAmount, Float::sum);
-        total.setText("Total: "+String.format("%.2f", totalAmount));
+        total.setText("Total: "+totalAmount);
+    }
+    private void setDailyChange() {
+        //TODO
     }
 }
