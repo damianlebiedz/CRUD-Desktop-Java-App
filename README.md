@@ -12,7 +12,7 @@ The purpose of creating the application was to create it as a simple and transpa
 ***
 Here is a main view of my application:
 ***
-![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/33848f53-a1ab-4691-a2e9-ab42624a0114)
+![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/44954bfc-033f-443c-81f2-76fd58e6921d)
 ***
 Example of using a search bar:
 ***
@@ -24,5 +24,5 @@ Action on mouse clicked record from table:
 ***
 Example of incorrect data error:
 ***
-![incorrect data error](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/9c25ec2f-a717-4538-86b9-c970c83797b1)
+![incorrect data error](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/aabfa4e0-cfdd-444a-945c-bc80c72d89e1)
 ***
