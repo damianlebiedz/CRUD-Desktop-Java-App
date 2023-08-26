@@ -58,7 +58,7 @@ public class MainController implements Initializable {
     @FXML
     private void addBtn() {
         try {
-            if(categoryField.getText().equals("Select a category") || priceField.getText().startsWith("0")) {
+            if(categoryField.getText().equals("Select a category")) {
                 throw new NumberFormatException();
             }
             String query =
