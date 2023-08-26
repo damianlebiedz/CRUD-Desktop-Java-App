@@ -3,7 +3,7 @@
 Created using:
 - JavaFX
 - H2 Embedded Database
-- build with Maven
+- built with Maven
 
 The application is supposed to perform Create, Read, Update and Delete actions.
 
