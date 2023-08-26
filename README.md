@@ -12,7 +12,7 @@ The purpose of creating the application was to create it as a simple and transpa
 ***
 Here is a main view of my application:
 ***
-![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/05575ac2-87e4-47fd-bb9c-5be6f5f49894)
+![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/e499ac5e-7987-4256-8ed9-c9bf9f6c16ce)
 ***
 Example of using a search bar:
 ***
