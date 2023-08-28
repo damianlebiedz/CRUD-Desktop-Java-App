@@ -14,7 +14,6 @@ import pl.damianlebiedz.financemanager.model.Data;
 
 import java.net.URL;
 import java.sql.*;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -49,16 +48,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        df.setMinimumFractionDigits(2);
         showData();
         dateField.setValue(LocalDate.now());
     }
     @FXML
     private void addBtn() {
         try {
-            if(categoryField.getText().equals("Select a category") || priceField.getText().startsWith("0")) {
+            if(categoryField.getText().equals("Select a category")) {
                 throw new NumberFormatException();
             }
             String query =
@@ -153,6 +149,19 @@ public class MainController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        priceColumn.setCellFactory(price -> new TableCell<>() {
+            @Override
+            protected void updateItem(Float aFloat, boolean b) {
+                super.updateItem(aFloat, b);
+                if (aFloat == null || b) {
+                    setText(null);
+                } else {
+                    setText(String.format("%.2f", aFloat));
+                }
+            }
+        });
+
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         searchData();
