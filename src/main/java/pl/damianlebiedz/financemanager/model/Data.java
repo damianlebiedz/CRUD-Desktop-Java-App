@@ -1,5 +1,9 @@
 package pl.damianlebiedz.financemanager.model;
 
+import lombok.Getter;
+
+@Getter
+
 public class Data {
     private final int id;
     private final String name;
@@ -13,18 +17,5 @@ public class Data {
         this.category = category;
         this.price = price;
         this.date = date;
-    }
-    public int getId() { return id; }
-    public String getName() {
-        return name;
-    }
-    public String getCategory() {
-        return category;
-    }
-    public float getPrice() {
-        return price;
-    }
-    public String getDate() {
-        return date;
     }
 }

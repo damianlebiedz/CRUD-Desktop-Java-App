@@ -43,6 +43,12 @@
             <version>2.2.220</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -65,7 +71,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>pl.damianlebiedz.financemanager.App
+                            <mainClass>pl.damianlebiedz.financemanager.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
