@@ -12,17 +12,17 @@ The purpose of creating the application was to create it simple and transparent.
 ***
 Here is a main view of my application:
 ***
-![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/44954bfc-033f-443c-81f2-76fd58e6921d)
+![main view](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/3ed67c90-f38d-4e89-84e4-b9bf3fa5ac0a)
 ***
 Example of using a search bar:
 ***
-![search bar](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/35acc56b-ecde-4323-8a8c-85ed0ef320e7)
+![search bar](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/2d4ee471-396d-4519-8891-c11270c66856)
 ***
 Action on mouse clicked record from table:
 ***
-![on mouse clicked action](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/7aa20c35-9f3f-4965-a30b-7732967e1e1f)
+![on mouse clicked](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/36d219a3-2704-490f-be66-c4ee589e244e)
 ***
 Example of incorrect data error:
 ***
-![incorrect data error](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/aabfa4e0-cfdd-444a-945c-bc80c72d89e1)
+![incorrect data error](https://github.com/damianlebiedz/Finance-Manager-CRUD-/assets/109239676/25cad134-90b9-4c17-8674-26cd7429e21f)
 ***
