@@ -1,6 +1,7 @@
 package pl.damianlebiedz.financemanager.controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -149,7 +150,6 @@ public class MainController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
         priceColumn.setCellFactory(price -> new TableCell<>() {
             @Override
             protected void updateItem(Float aFloat, boolean b) {
@@ -184,29 +184,28 @@ public class MainController implements Initializable {
     }
     private void searchData() {
         FilteredList<Data> filteredData = new FilteredList<>(getDataList(), b -> true);
-        search.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            filteredData.setPredicate(Data -> {
-                if(newValue.isEmpty() || newValue.isBlank()) {
-                    return true;
-                }
-                String lowerCase = newValue.toLowerCase();
+        search.textProperty().addListener((observableValue, oldValue, newValue) -> filteredData.setPredicate(Data -> {
+            if(newValue.isEmpty() || newValue.isBlank()) {
+                return true;
+            }
+            String lowerCase = newValue.toLowerCase();
 
-                if(Data.getName().toLowerCase().contains(lowerCase)) {
-                    return true;
-                }
-                else if(Data.getCategory().toLowerCase().contains(lowerCase)) {
-                    return true;
-                }
-                else if(String.valueOf(Data.getPrice()).toLowerCase().contains(lowerCase)) {
-                    return true;
-                }
-                else return String.valueOf(Data.getDate()).toLowerCase().contains(lowerCase);
-            });
-            setTotal();
-        });
+            if(Data.getName().toLowerCase().contains(lowerCase)) {
+                return true;
+            }
+            else if(Data.getCategory().toLowerCase().contains(lowerCase)) {
+                return true;
+            }
+            else if(String.valueOf(Data.getPrice()).toLowerCase().contains(lowerCase)) {
+                return true;
+            }
+            else return String.valueOf(Data.getDate()).toLowerCase().contains(lowerCase);
+        }));
         SortedList<Data> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.setItems(sortedData);
+
+        sortedData.addListener((ListChangeListener.Change<? extends Data> c) -> setTotal());
         setTotal();
     }
     private void setTotal() {
