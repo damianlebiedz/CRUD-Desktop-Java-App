@@ -13,7 +13,9 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1080, 720);
+            int width = 1080;
+            int height = 720;
+            Scene scene = new Scene(fxmlLoader.load(), width, height);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png")));
             stage.getIcons().add(icon);
@@ -23,7 +25,7 @@ public class Main extends Application {
             stage.show();
         }
         catch(Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     public static void main(String[] args) {

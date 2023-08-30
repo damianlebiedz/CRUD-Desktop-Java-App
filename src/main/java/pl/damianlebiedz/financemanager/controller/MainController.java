@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pl.damianlebiedz.financemanager.db.DBConnection;
 import pl.damianlebiedz.financemanager.model.Data;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -58,11 +59,11 @@ public class MainController implements Initializable {
             if(categoryField.getText().equals("Select a category")) {
                 throw new NumberFormatException();
             }
-            String query =
+            String insert =
                     "INSERT INTO DATA VALUES (default,'" + nameField.getText() + "','" + categoryField.getText() +
                             "'," + Float.parseFloat(priceField.getText()) + ",'" + dateField.getValue().toString() +
                             "')";
-            executeUpdate(query);
+            executeUpdate(insert);
             showData();
             errorField.clear();
         }
@@ -74,9 +75,9 @@ public class MainController implements Initializable {
     private void deleteBtn() {
         Data data = table.getSelectionModel().getSelectedItem();
         int id = data.getId();
-        String query =
+        String delete =
                 "DELETE FROM DATA WHERE ID="+id+";";
-        executeUpdate(query);
+        executeUpdate(delete);
         showData();
     }
     @FXML
@@ -87,11 +88,11 @@ public class MainController implements Initializable {
             }
             Data data = table.getSelectionModel().getSelectedItem();
             int id = data.getId();
-            String query =
+            String update =
                     "UPDATE  DATA SET NAME ='" + nameField.getText() + "', CATEGORY = '" + categoryField.getText() + "'," + " PRICE = " +
                             Float.parseFloat(priceField.getText()) + ", DATE = '" + dateField.getValue().toString() + "' " +
                             "WHERE id = " + id + "";
-            executeUpdate(query);
+            executeUpdate(update);
             showData();
             errorField.clear();
         }
@@ -106,7 +107,8 @@ public class MainController implements Initializable {
             nameField.setText(data.getName());
             categoryField.setText(data.getCategory());
             priceField.setText(String.valueOf(data.getPrice()));
-            dateField.setValue(LocalDate.parse(data.getDate()));
+            priceField.setText(data.getPrice().toString());
+            dateField.setValue(data.getDate().toLocalDate());
         }
         catch (NullPointerException ignored) {
         }
@@ -136,8 +138,8 @@ public class MainController implements Initializable {
                         result.getInt("id"),
                         result.getString("name"),
                         result.getString("category"),
-                        result.getFloat("price"),
-                        result.getString("date"))
+                        result.getBigDecimal("price"),
+                        result.getDate("date"))
                 );
             }
             connection.close();
@@ -150,18 +152,6 @@ public class MainController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        priceColumn.setCellFactory(price -> new TableCell<>() {
-            @Override
-            protected void updateItem(Float aFloat, boolean b) {
-                super.updateItem(aFloat, b);
-                if (aFloat == null || b) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f", aFloat));
-                }
-            }
-        });
-
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         searchData();
@@ -184,22 +174,21 @@ public class MainController implements Initializable {
     }
     private void searchData() {
         FilteredList<Data> filteredData = new FilteredList<>(getDataList(), b -> true);
-        search.textProperty().addListener((observableValue, oldValue, newValue) -> filteredData.setPredicate(Data -> {
+        search.textProperty().addListener((observableValue, oldValue, mixedNewValue) -> filteredData.setPredicate(Data -> {
+            String newValue = mixedNewValue.toLowerCase();
             if(newValue.isEmpty() || newValue.isBlank()) {
                 return true;
             }
-            String lowerCase = newValue.toLowerCase();
-
-            if(Data.getName().toLowerCase().contains(lowerCase)) {
+            if(Data.getName().toLowerCase().contains(newValue)) {
                 return true;
             }
-            else if(Data.getCategory().toLowerCase().contains(lowerCase)) {
+            else if(Data.getCategory().contains(newValue)) {
                 return true;
             }
-            else if(String.valueOf(Data.getPrice()).toLowerCase().contains(lowerCase)) {
+            else if(String.valueOf(Data.getPrice()).contains(newValue)) {
                 return true;
             }
-            else return String.valueOf(Data.getDate()).toLowerCase().contains(lowerCase);
+            else return String.valueOf(Data.getDate()).contains(newValue);
         }));
         SortedList<Data> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
@@ -209,9 +198,9 @@ public class MainController implements Initializable {
         setTotal();
     }
     private void setTotal() {
-        float totalAmount = 0;
+        BigDecimal totalAmount = BigDecimal.ZERO;
         totalAmount = table.getItems().stream().map(
-                Data::getPrice).reduce(totalAmount, Float::sum);
+                Data::getPrice).reduce(totalAmount, BigDecimal::add);
         total.setText("Total: "+String.format("%.2f", totalAmount));
     }
 }
