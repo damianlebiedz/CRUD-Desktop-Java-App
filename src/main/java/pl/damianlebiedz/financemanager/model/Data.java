@@ -1,10 +1,10 @@
 package pl.damianlebiedz.financemanager.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.math.BigDecimal;
 import java.sql.Date;
+
+import lombok.Getter;
+import lombok.AllArgsConstructor;
 
 @Getter
 @AllArgsConstructor
