@@ -1,6 +1,6 @@
-# Finance-Manager-CRUD
+# Finance-Manager
 
-Created using:
+CRUD Desktop application created using:
 - JavaFX
 - H2 Embedded Database
 - built with Maven
