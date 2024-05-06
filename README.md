@@ -2,7 +2,7 @@
 
 CRUD Desktop application created using:
 - JavaFX
-- H2 Embedded Database
+- (SQL) H2 Embedded Database
 - built with Maven
 
 The application is supposed to Create, Read, Update and Delete data.
