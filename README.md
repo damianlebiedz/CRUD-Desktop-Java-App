@@ -1,4 +1,7 @@
-# Finance-Manager
+# Java desktop CRUD-application: "Finance Manager"
+
+Pierwszy rozbudowany projekt w Java - aplikacja desktopowa CRUD (create-read-update-delete) zbudowana przy użyciu Mavena, JavaFX, oraz desktopowej bazy danych H2 (SQL). Cel był następujący: zbudować aplikację, która umożliwi prowadzenie budżetu domowego.
+
 
 CRUD Desktop application created using:
 - JavaFX
