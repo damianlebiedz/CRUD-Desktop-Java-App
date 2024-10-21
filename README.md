@@ -1,13 +1,16 @@
-# Finance-Manager-CRUD
+# Java desktop CRUD-application: "Finance Manager"
 
-Created using:
+Pierwszy rozbudowany projekt w Java - aplikacja desktopowa CRUD (create-read-update-delete) zbudowana przy użyciu Mavena, JavaFX, oraz desktopowej bazy danych H2 (SQL). Cel był następujący: zbudować aplikację, która umożliwi prowadzenie budżetu domowego.
+
+
+CRUD Desktop application created using:
 - JavaFX
-- H2 Embedded Database
+- (SQL) H2 Embedded Database
 - built with Maven
 
 The application is supposed to Create, Read, Update and Delete data.
 
-The purpose of creating the application was to create it simple and transparent. The Application stores data on household expenses and shows total amount of these value. To add a record to table, it is required to provide the name of the expense, indicate its category, amount and date. If the entered amount is in the wrong format, the application will indicate an error.
+The purpose of creating the application was to create simple and transparent project in Java. The Application stores data on household expenses and shows total amount of these value. To add a record to table, it is required to provide the name of the expense, indicate its category, amount and date. If the entered amount is in the wrong format, the application will indicate an error.
 
 ***
 Main view:
