@@ -1,5 +1,6 @@
-package pl.damianlebiedz.financemanager.controller;
+package com.damianlebiedz.financemanager.controller;
 
+import com.damianlebiedz.financemanager.model.Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -10,8 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import pl.damianlebiedz.financemanager.db.DBConnection;
-import pl.damianlebiedz.financemanager.model.Data;
+import com.damianlebiedz.financemanager.db.DBConnection;
 
 import java.math.BigDecimal;
 import java.net.URL;

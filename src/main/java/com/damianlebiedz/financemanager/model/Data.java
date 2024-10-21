@@ -1,4 +1,4 @@
-package pl.damianlebiedz.financemanager.model;
+package com.damianlebiedz.financemanager.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;

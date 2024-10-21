@@ -4,12 +4,12 @@ module pl.damianlebiedz.financemanager {
     requires java.sql;
     requires static lombok;
 
-    opens pl.damianlebiedz.financemanager to javafx.fxml;
-    exports pl.damianlebiedz.financemanager;
-    exports pl.damianlebiedz.financemanager.controller;
-    opens pl.damianlebiedz.financemanager.controller to javafx.fxml;
-    exports pl.damianlebiedz.financemanager.model;
-    opens pl.damianlebiedz.financemanager.model to javafx.fxml;
-    exports pl.damianlebiedz.financemanager.db;
-    opens pl.damianlebiedz.financemanager.db to javafx.fxml;
+    opens com.damianlebiedz.financemanager to javafx.fxml;
+    exports com.damianlebiedz.financemanager;
+    exports com.damianlebiedz.financemanager.controller;
+    opens com.damianlebiedz.financemanager.controller to javafx.fxml;
+    exports com.damianlebiedz.financemanager.model;
+    opens com.damianlebiedz.financemanager.model to javafx.fxml;
+    exports com.damianlebiedz.financemanager.db;
+    opens com.damianlebiedz.financemanager.db to javafx.fxml;
 }

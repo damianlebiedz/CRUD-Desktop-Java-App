@@ -1,11 +1,11 @@
-package pl.damianlebiedz.financemanager.db;
+package com.damianlebiedz.financemanager.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    String url = "jdbc:h2:./src/main/resources/db/data";
+    String url = "jdbc:h2:~/data";
     String username = "sa";
     String password = "123";
 

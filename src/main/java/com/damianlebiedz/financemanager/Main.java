@@ -1,4 +1,4 @@
-package pl.damianlebiedz.financemanager;
+package com.damianlebiedz.financemanager;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
